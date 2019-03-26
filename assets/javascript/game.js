@@ -11,11 +11,17 @@ var userGuess = []
 wins.textContent = parseInt(0);
 losses.textContent = parseInt(0);
 guessesLeft.textContent = parseInt(9);
+var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+ 
+function reset(){
+computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+guessesLeft.textContent = parseInt(9);
+userGuess = [];
+}
 
 document.onkeyup = function (event) {
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     var uGuess = event.key;
-    if (userChoices.includes(uGuess)) {
+    if (userChoices.includes(uGuess) && userGuess.indexOf(uGuess) < 0) {
         userGuess.push(uGuess);
         guessesSoFar.textContent = userGuess;
     }
@@ -26,5 +32,8 @@ document.onkeyup = function (event) {
     if (uGuess != computerGuess){
         losses.textContent++;
         guessesLeft.textContent--;
+    }
+    if (guessesLeft = 0){
+        reset()
     }
 }
