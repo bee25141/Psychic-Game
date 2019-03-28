@@ -1,39 +1,49 @@
-var wins = document.getElementById("wins");
-var losses = document.getElementById("losses");
-var ties = document.getElementById("ties");
-var guessesLeft = document.getElementById("guessesLeft");
+var winsElement = document.getElementById("wins");
+var lossesElement = document.getElementById("losses");
+var guessesLeftElement = document.getElementById("guessesLeft");
 var guessesSoFar = document.getElementById("guessesSoFar");
 
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var userChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var userGuess = []
 
-wins.textContent = parseInt(0);
-losses.textContent = parseInt(0);
-guessesLeft.textContent = parseInt(9);
+wins = 0;
+losses = 0;
+guessesLeft = 9;
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
- 
-function reset(){
-computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-guessesLeft.textContent = parseInt(9);
-userGuess = [];
+console.log(computerGuess);
+
+function reset() {
+    computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    guessesLeft = 9;
+    userGuess = [" "];
+}
+
+function win(){
+    wins++;
+    reset();
+}
+
+function loss(){
+    losses++;
 }
 
 document.onkeyup = function (event) {
     var uGuess = event.key;
-    if (userChoices.includes(uGuess) && userGuess.indexOf(uGuess) < 0) {
-        userGuess.push(uGuess);
-        guessesSoFar.textContent = userGuess;
-    }
-    if (uGuess === computerGuess){
-        wins.textContent++;
-        guessesLeft.textContent = parseInt(9);
-    }
-    if (uGuess != computerGuess){
-        losses.textContent++;
-        guessesLeft.textContent--;
-    }
-    if (guessesLeft = 0){
-        reset()
-    }
+    console.log(uGuess);
+    userGuess.push(uGuess);
+    guessesSoFar.textContent = userGuess.join(",\xa0");
+
+if (uGuess == computerGuess) {
+    win();
 }
+if (uGuess != computerGuess){
+    (guessesLeft--);
+}
+if (guessesLeft ==0) {
+    loss();
+}
+}
+
+winsElement.textContent = (wins);
+lossesElement.textContent = losses;
+guessesLeftElement.textContent = guessesLeft;
