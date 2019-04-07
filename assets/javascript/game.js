@@ -18,8 +18,10 @@ console.log(computerGuess);
 
 document.onkeyup = function (event) {
     var uGuess = event.key;
+    if (userGuess.includes(uGuess) === false && computerChoices.includes(uGuess)){
     userGuess.push(uGuess);
     guessesLeft--;
+    }
     
 
     function reset(){;
